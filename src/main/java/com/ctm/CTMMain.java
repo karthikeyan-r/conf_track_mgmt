@@ -17,7 +17,6 @@ public class CTMMain {
 			System.out.println();
 
 		} catch (CTMException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
