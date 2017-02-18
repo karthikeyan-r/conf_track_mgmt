@@ -12,7 +12,9 @@ public abstract class Session {
 
 	List<Presentation> presentationList;
 
-	public abstract void scheduleSession();
+	public void scheduleSession() {
+
+	}
 
 	@Override
 	public String toString() {
