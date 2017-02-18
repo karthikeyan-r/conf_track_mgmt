@@ -23,6 +23,15 @@ public class CTMScheduler {
 		return false;
 	}
 
+	/***
+	 * Split Collection of Presentation in groups - where sum of duration of
+	 * group should fall within given duration
+	 * 
+	 * @param presentatnMap
+	 * @param minDrtn
+	 * @param maxDrtn
+	 * @return
+	 */
 	public List<Presentation> splitNSegment(Map<Integer, Presentation> presentatnMap, int minDrtn, int maxDrtn) {
 		int N = 1;
 
