@@ -18,6 +18,23 @@ public class Presentation {
 		this.isScheduled = false;
 	}
 
+	@Override
+	public String toString() {
+		StringBuffer stringBuff = new StringBuffer();
+		stringBuff.append(this.id);
+		stringBuff.append(". ");
+		stringBuff.append(this.title);
+		stringBuff.append("- ");
+		stringBuff.append(this.startTime);
+		stringBuff.append("-");
+		stringBuff.append(this.startTime + this.duration);
+		stringBuff.append(" :: ");
+		stringBuff.append(this.speakerInfo);
+		stringBuff.append("\n");
+
+		return stringBuff.toString();
+	}
+
 	public int getId() {
 		return id;
 	}

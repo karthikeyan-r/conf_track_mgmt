@@ -5,7 +5,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,12 +34,15 @@ public class CTMFileReader {
 		}
 	}
 
-	public List<Presentation> getPresentationList() throws CTMException {
+	public int maxPresentationTime = 0;
+
+	public Map<Integer, Presentation> getPresentationList() throws CTMException {
 		List<String> inputlst = readFile();
 
-		int presentationID = 1;
+		int presentationID = 0;
 
-		List<Presentation> presentationLst = new ArrayList<>();
+		Map<Integer, Presentation> presentationMap = new LinkedHashMap<>();
+
 		for (String string : inputlst) {
 			if (StringUtils.isNotNullNotEmpty(string)) {
 				String title = string.substring(0, string.lastIndexOf(" "));
@@ -48,11 +53,13 @@ public class CTMFileReader {
 					timeValue = StringUtils.trimExtraSpaces(timeValue);
 					presentationTime = StringUtils.parseInt(timeValue);
 				}
-				presentationLst.add(new Presentation(presentationID, title, presentationTime));
+				maxPresentationTime = maxPresentationTime + presentationTime;
+
+				presentationMap.put(presentationID, new Presentation(presentationID, title, presentationTime));
 				presentationID++;
 			}
 		}
-		return presentationLst;
+		return presentationMap;
 	}
 
 	private List<String> readFile() throws CTMException {
@@ -79,5 +86,13 @@ public class CTMFileReader {
 
 		Matcher matcher = textPattern.matcher(strLine);
 		return matcher.matches();
+	}
+
+	public int getMaxPresentationTime() {
+		return maxPresentationTime;
+	}
+
+	public void setMaxPresentationTime(int maxPresentationTime) {
+		this.maxPresentationTime = maxPresentationTime;
 	}
 }
