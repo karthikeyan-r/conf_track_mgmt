@@ -1,5 +1,10 @@
 package com.ctm.model;
 
-public class BreakSessionImpl implements Session {
+public class BreakSessionImpl extends Session {
+
+	@Override
+	public void scheduleSession() {
+
+	}
 
 }

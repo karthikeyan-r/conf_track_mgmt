@@ -6,6 +6,8 @@ public class Presentation {
 	String title;
 	int duration;
 	String speakerInfo;
+	boolean isScheduled;
+	int startTime;
 
 	public Presentation(int id, String title, int duration) {
 		super();
@@ -13,6 +15,7 @@ public class Presentation {
 		this.title = title;
 		this.duration = duration;
 		this.speakerInfo = "NA";
+		this.isScheduled = false;
 	}
 
 	public int getId() {
@@ -45,6 +48,22 @@ public class Presentation {
 
 	public void setSpeakerInfo(String speakerInfo) {
 		this.speakerInfo = speakerInfo;
+	}
+
+	public boolean isScheduled() {
+		return isScheduled;
+	}
+
+	public void setScheduled(boolean isScheduled) {
+		this.isScheduled = isScheduled;
+	}
+
+	public int getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(int startTime) {
+		this.startTime = startTime;
 	}
 
 }
