@@ -25,7 +25,7 @@ public class CTMScheduler {
 
 	/***
 	 * Split Collection of Presentation in groups - where sum of duration of
-	 * group should fall within given duration
+	 * group should fall within given duration.
 	 * 
 	 * @param presentatnMap
 	 * @param minDrtn
