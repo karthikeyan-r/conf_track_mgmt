@@ -25,7 +25,7 @@ public class CTMOutputWriter {
 	BufferedWriter logWriter = null;
 
 	/***
-	 * If file name is valid (not null) then file writer object is initialised;
+	 * If file name is valid (not null) then file writer object is initialized;
 	 * otherwise OutputStream write with System.out (console) input.
 	 * 
 	 * 
