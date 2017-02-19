@@ -1,4 +1,4 @@
-package com.ctm;
+package com.ctm.model.compare;
 
 import java.util.Comparator;
 

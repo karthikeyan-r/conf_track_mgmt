@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import com.ctm.PresentationComparator;
+import com.ctm.model.compare.PresentationComparator;
 import com.ctm.scheduler.CTMScheduler;
 import com.ctm.utils.CommonUtils;
 import com.ctm.utils.Constants.SESSION_TYPE;
