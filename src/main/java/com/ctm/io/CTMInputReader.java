@@ -1,9 +1,9 @@
 package com.ctm.io;
 
 import java.io.BufferedReader;
-import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -16,26 +16,51 @@ import com.ctm.model.Presentation;
 import com.ctm.utils.Constants;
 import com.ctm.utils.StringUtils;
 
-public class CTMFileReader {
+/****
+ * Input Reader class which can read input from file or console based on Reader
+ * input
+ * 
+ * @author Karthikeyan R
+ *
+ */
+public class CTMInputReader {
 
 	private String fileName = null;
 
-	public CTMFileReader(String fileNm) {
+	BufferedReader inputReader = null;
+
+	/***
+	 * If file name is valid (not null) then file reader object is initialised;
+	 * otherwise InputStream read with System.in (console) input.
+	 * 
+	 * @param fileNm
+	 */
+	public CTMInputReader(String fileNm) {
 		this.fileName = fileNm;
 
-		File f = new File(fileNm);
-		System.out.println(f.getPath());
-		System.out.println(f.getAbsolutePath());
 		try {
-			System.out.println(f.getCanonicalPath());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			if (this.fileName != null)
+				inputReader = new BufferedReader(new FileReader(this.fileName));
+			else
+				inputReader = new BufferedReader(new InputStreamReader(System.in));
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 
+	public CTMInputReader() {
+		this(null);
+	}
+
 	public int maxPresentationTime = 0;
 
+	/***
+	 * Read presentation list from file & parse title & min and return as
+	 * Map<Integeger, Presentation> object
+	 * 
+	 * @return
+	 * @throws CTMException
+	 */
 	public Map<Integer, Presentation> getPresentationList() throws CTMException {
 		List<String> inputlst = readFile();
 
@@ -62,18 +87,25 @@ public class CTMFileReader {
 		return presentationMap;
 	}
 
+	/***
+	 * While reading input from console - DONE as end of input token
+	 * 
+	 * @return
+	 * @throws CTMException
+	 */
 	private List<String> readFile() throws CTMException {
 		List<String> inputList = new ArrayList<String>();
-		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+		try {
 			// Read File Line By Line
 			String strLine = null;
-			while ((strLine = br.readLine()) != null) {
+			while ((strLine = inputReader.readLine()) != null && !strLine.equalsIgnoreCase("done")) {
 				strLine = StringUtils.trimExtraSpaces(strLine);
 				if (isValidInputLine(strLine))
 					inputList.add(strLine);
 				else
 					System.out.println("---------------INVALID " + strLine);
 			}
+			inputReader.close();
 		} catch (Exception e) {// Catch exception if any
 			e.printStackTrace();
 			throw new CTMException(e.getMessage());
@@ -81,6 +113,14 @@ public class CTMFileReader {
 		return inputList;
 	}
 
+	/***
+	 * Regex pattern to read the input line & validate. Input line should be of
+	 * format any alphanumeric character followed by single space & number in
+	 * minutes followed by min/lightining
+	 * 
+	 * @param strLine
+	 * @return
+	 */
 	public boolean isValidInputLine(String strLine) {
 		Pattern textPattern = Pattern.compile("(.*)(\\s){1}([0-9]*min|lightning)\\b");
 

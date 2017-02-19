@@ -1,5 +1,14 @@
 package com.ctm.utils;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+/***
+ * Application defaults of this application
+ * 
+ * @author Karthikeyan R
+ *
+ */
 public class Constants {
 
 	public static final String TIME_MIN_SUFFIX = "min";
@@ -8,8 +17,27 @@ public class Constants {
 	public static final int LIGHTNING_MIN_TIME = 5;
 	public static final int MAX_CONF_DAYS = 2;
 
+	public static final String MORNING_START_TIME = "9:00 am";
+	public static final int MAX_MORNING_SESSION_TIME = 180;
+
+	public static final String LUNCH_START_TIME = "12:00 pm";
+
+	public static final String NOON_START_TIME = "1:00 pm";
+	public static final int MIN_SESSION_TIME = 180;
+	public static final int MAX_NOON_SESSION_TIME = 240;
+
+	public static final String NETWORKING_START_TIME = "5:00 pm";
+
+	public static final int MAX_BREAK_DRTN_TIME = 60;
+
+	public static final int MAX_SESSION_PER_DAY = SESSION_TYPE.values().length;
+
+	public static final int DEFAULT_DAY_NUMBER = -1;
+
+	public static final DateFormat MY_TIME_FORMAT = new SimpleDateFormat("hh:mm a");
+
 	public enum SESSION_TYPE {
-		MORNING("morning"), NOON("noon"), LUNCH("lunch"), NETWORK("networking");
+		MORNING("morning"), LUNCH("lunch"), NOON("noon"), NETWORK("networking");
 
 		private String title;
 
@@ -19,6 +47,10 @@ public class Constants {
 
 		public String getTitle() {
 			return title;
+		}
+
+		public void setTitle(String title) {
+			this.title = title;
 		}
 	}
 

@@ -1,47 +1,76 @@
 package com.ctm;
 
-import java.util.List;
 import java.util.Map;
 
 import com.ctm.exception.CTMException;
-import com.ctm.io.CTMFileReader;
+import com.ctm.io.CTMInputReader;
+import com.ctm.io.CTMOutputWriter;
+import com.ctm.model.BreakSessionImpl;
+import com.ctm.model.Conference;
 import com.ctm.model.Presentation;
+import com.ctm.model.PresentationSessionImpl;
+import com.ctm.model.Session;
+import com.ctm.utils.Constants;
+import com.ctm.utils.Constants.SESSION_TYPE;
 
 public class CTMMain {
 
 	public static void main(String[] args) {
 
-		CTMFileReader fileReader = new CTMFileReader("./input.txt");
+		Conference conference = new Conference();
+
+		CTMInputReader fileReader = new CTMInputReader("./input.txt");
+		// CTMFileReader fileReader = new CTMFileReader();
 		try {
-			Map<Integer, Presentation> presentationLst = fileReader.getPresentationList();
-			int maxConfDays = fileReader.getMaxPresentationTime() / 60;
+			Map<Integer, Presentation> presentationMap = fileReader.getPresentationList();
+			int maxConfDays = fileReader.getMaxPresentationTime() / 360;
 
-			if (maxConfDays < 1)
+			if (maxConfDays < 1) {
 				System.out.println("Insuffiucient Presentation for conference");
-
-			CTMScheduler scheduler = new CTMScheduler();
-
-			for (int sessionIndx = 0; sessionIndx < maxConfDays * 2; sessionIndx++) {
-
-				int minDuration = 180;
-				int maxDuration = 180;
-
-				if (sessionIndx % 2 == 1)
-					maxDuration = 240;
-
-				List<Presentation> sessionPresentnLst = scheduler.splitNSegment(presentationLst, minDuration,
-						maxDuration);
-				for (Presentation presentation : sessionPresentnLst) {
-					System.out.println(presentation.toString());
-				}
+				return;
 			}
 
-			System.out.println();
+			for (int sessionIndx = 0; sessionIndx < maxConfDays * Constants.MAX_SESSION_PER_DAY; sessionIndx++) {
+				Session session = null;
+
+				int sessionCount = sessionIndx % Constants.MAX_SESSION_PER_DAY;
+				SESSION_TYPE sessionType = SESSION_TYPE.values()[sessionCount];
+
+				switch (sessionType) {
+				case MORNING:
+					int dayCount = (sessionIndx / 4) + 1;
+
+					session = new PresentationSessionImpl(SESSION_TYPE.MORNING, Constants.MIN_SESSION_TIME,
+							Constants.MAX_MORNING_SESSION_TIME, Constants.MORNING_START_TIME, dayCount);
+					break;
+				case LUNCH:
+					session = new BreakSessionImpl(SESSION_TYPE.LUNCH, Constants.MAX_BREAK_DRTN_TIME,
+							Constants.LUNCH_START_TIME);
+					break;
+				case NOON:
+					session = new PresentationSessionImpl(SESSION_TYPE.NOON, Constants.MIN_SESSION_TIME,
+							Constants.MAX_NOON_SESSION_TIME, Constants.NOON_START_TIME, Constants.DEFAULT_DAY_NUMBER);
+					break;
+				case NETWORK:
+					session = new BreakSessionImpl(SESSION_TYPE.NETWORK, Constants.MAX_BREAK_DRTN_TIME,
+							Constants.NETWORKING_START_TIME);
+					break;
+				}
+
+				if (session instanceof BreakSessionImpl) {
+					conference.addSession(session);
+					continue;
+				}
+
+				session.scheduleSession(presentationMap);
+				conference.addSession(session);
+			}
+
+			CTMOutputWriter fileWriter = new CTMOutputWriter(conference.getSessionLst());
+			fileWriter.writeFile();
 
 		} catch (CTMException e) {
 			e.printStackTrace();
 		}
-
 	}
-
 }

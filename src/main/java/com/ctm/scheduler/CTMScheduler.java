@@ -1,12 +1,15 @@
-package com.ctm;
+package com.ctm.scheduler;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import com.ctm.model.Presentation;
+import com.ctm.model.PresentationSessionImpl;
 
 public class CTMScheduler {
+
+	private static int N = 1;
 
 	private boolean getSegmentWt(List<Presentation> presentationLst, int minDrtn, int maxDrtn) {
 		int sum = 0;
@@ -23,17 +26,8 @@ public class CTMScheduler {
 		return false;
 	}
 
-	/***
-	 * Split Collection of Presentation in groups - where sum of duration of
-	 * group should fall within given duration.
-	 * 
-	 * @param presentatnMap
-	 * @param minDrtn
-	 * @param maxDrtn
-	 * @return
-	 */
-	public List<Presentation> splitNSegment(Map<Integer, Presentation> presentatnMap, int minDrtn, int maxDrtn) {
-		int N = 1;
+	public List<Presentation> splitNSegment(Map<Integer, Presentation> presentatnMap,
+			PresentationSessionImpl sessionImpl) {
 
 		while (N <= presentatnMap.size()) {
 			List<Presentation> tempPresentnLst = new ArrayList<Presentation>();
@@ -41,7 +35,8 @@ public class CTMScheduler {
 				if (N < 2) {
 					tempPresentnLst = new ArrayList<Presentation>();
 					tempPresentnLst.add(presentatnMap.get(i));
-					boolean sumW = getSegmentWt(tempPresentnLst, minDrtn, maxDrtn);
+					boolean sumW = getSegmentWt(tempPresentnLst, sessionImpl.getMinSessionDuration(),
+							sessionImpl.getMaxSessionDuration());
 					if (sumW)
 						return tempPresentnLst;
 				}
@@ -65,7 +60,8 @@ public class CTMScheduler {
 						j1++;
 						j2++;
 					}
-					boolean sumW = getSegmentWt(tempPresentnLst, minDrtn, maxDrtn);
+					boolean sumW = getSegmentWt(tempPresentnLst, sessionImpl.getMinSessionDuration(),
+							sessionImpl.getMaxSessionDuration());
 					if (sumW)
 						return tempPresentnLst;
 				}
