@@ -71,16 +71,21 @@ public class CTMInputReader {
 		for (String string : inputlst) {
 			if (StringUtils.isNotNullNotEmpty(string)) {
 				String title = string.substring(0, string.lastIndexOf(" "));
+				boolean isLightning = false;
+
 				int presentationTime = Constants.LIGHTNING_MIN_TIME;
 				if (string.endsWith(Constants.TIME_MIN_SUFFIX)) {
 					String timeValue = string.substring(string.lastIndexOf(" "), string.length());
 					timeValue = timeValue.replaceAll(Constants.TIME_MIN_SUFFIX, "");
 					timeValue = StringUtils.trimExtraSpaces(timeValue);
 					presentationTime = StringUtils.parseInt(timeValue);
-				}
+				} else
+					isLightning = true;
+
 				maxPresentationTime = maxPresentationTime + presentationTime;
 
-				presentationMap.put(presentationID, new Presentation(presentationID, title, presentationTime));
+				presentationMap.put(presentationID,
+						new Presentation(presentationID, title, presentationTime, isLightning));
 				presentationID++;
 			}
 		}

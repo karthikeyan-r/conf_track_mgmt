@@ -9,21 +9,23 @@ package com.ctm.model;
 
 public class Presentation {
 
-	int id;
-	String title;
-	int duration;
-	String speakerInfo;
-	boolean isScheduled;
-	String startTime;
-	String endTime;
+	public int id;
+	public String title;
+	public int duration;
+	public String speakerInfo;
+	public boolean isScheduled;
+	public String startTime;
+	public String endTime;
+	public boolean isLightning;
 
-	public Presentation(int id, String title, int duration) {
+	public Presentation(int id, String title, int duration, boolean isLightning) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.duration = duration;
 		this.speakerInfo = "NA";
 		this.isScheduled = false;
+		this.isLightning = isLightning;
 	}
 
 	/***
@@ -106,6 +108,14 @@ public class Presentation {
 
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
+	}
+
+	public boolean isLightning() {
+		return isLightning;
+	}
+
+	public void setLightning(boolean isLightning) {
+		this.isLightning = isLightning;
 	}
 
 }
