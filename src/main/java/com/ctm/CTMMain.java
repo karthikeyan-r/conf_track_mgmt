@@ -19,10 +19,15 @@ public class CTMMain {
 
 		Conference conference = new Conference();
 
-		CTMInputReader fileReader = new CTMInputReader("./input.txt");
-		// CTMFileReader fileReader = new CTMFileReader();
+		CTMInputReader fileReader = null;
+		if (args != null && args.length > 0)
+			fileReader = new CTMInputReader(args[0]);
+		else
+			fileReader = new CTMInputReader();
+
 		try {
-			Map<Integer, Presentation> presentationMap = fileReader.getPresentationList();
+			Map<Integer, Presentation> presentationMap = fileReader
+					.getPresentationList();
 			int maxConfDays = fileReader.getMaxPresentationTime() / 360;
 
 			if (maxConfDays < 1) {
@@ -30,7 +35,8 @@ public class CTMMain {
 				return;
 			}
 
-			for (int sessionIndx = 0; sessionIndx < maxConfDays * Constants.MAX_SESSION_PER_DAY; sessionIndx++) {
+			for (int sessionIndx = 0; sessionIndx < maxConfDays
+					* Constants.MAX_SESSION_PER_DAY; sessionIndx++) {
 				Session session = null;
 
 				int sessionCount = sessionIndx % Constants.MAX_SESSION_PER_DAY;
@@ -40,19 +46,26 @@ public class CTMMain {
 				case MORNING:
 					int dayCount = (sessionIndx / 4) + 1;
 
-					session = new PresentationSessionImpl(SESSION_TYPE.MORNING, Constants.MIN_SESSION_TIME,
-							Constants.MAX_MORNING_SESSION_TIME, Constants.MORNING_START_TIME, dayCount);
+					session = new PresentationSessionImpl(SESSION_TYPE.MORNING,
+							Constants.MIN_SESSION_TIME,
+							Constants.MAX_MORNING_SESSION_TIME,
+							Constants.MORNING_START_TIME, dayCount);
 					break;
 				case LUNCH:
-					session = new BreakSessionImpl(SESSION_TYPE.LUNCH, Constants.MAX_BREAK_DRTN_TIME,
+					session = new BreakSessionImpl(SESSION_TYPE.LUNCH,
+							Constants.MAX_BREAK_DRTN_TIME,
 							Constants.LUNCH_START_TIME);
 					break;
 				case NOON:
-					session = new PresentationSessionImpl(SESSION_TYPE.NOON, Constants.MIN_SESSION_TIME,
-							Constants.MAX_NOON_SESSION_TIME, Constants.NOON_START_TIME, Constants.DEFAULT_DAY_NUMBER);
+					session = new PresentationSessionImpl(SESSION_TYPE.NOON,
+							Constants.MIN_SESSION_TIME,
+							Constants.MAX_NOON_SESSION_TIME,
+							Constants.NOON_START_TIME,
+							Constants.DEFAULT_DAY_NUMBER);
 					break;
 				case NETWORK:
-					session = new BreakSessionImpl(SESSION_TYPE.NETWORK, Constants.MAX_BREAK_DRTN_TIME,
+					session = new BreakSessionImpl(SESSION_TYPE.NETWORK,
+							Constants.MAX_BREAK_DRTN_TIME,
 							Constants.NETWORKING_START_TIME);
 					break;
 				}
@@ -66,7 +79,8 @@ public class CTMMain {
 				conference.addSession(session);
 			}
 
-			CTMOutputWriter fileWriter = new CTMOutputWriter(conference.getSessionLst());
+			CTMOutputWriter fileWriter = new CTMOutputWriter(
+					conference.getSessionLst());
 			fileWriter.writeFile();
 
 		} catch (CTMException e) {
