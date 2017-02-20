@@ -21,12 +21,15 @@ public class CTMScheduler {
 	private static int N = 1;
 
 	/***
-	 * Calculate sum of weight for given list of presentation & check whether it
+	 * Calculate sum of weight (total minutes) for given list of presentation & check whether it
 	 * falls within allowed range of duration
 	 * 
+	 * If minimum & maximum duration is not same, then we need to check whether sum of minutes 
+	 * falls within this range of values
+	 *
 	 * @param presentationLst
-	 * @param minDrtn
-	 * @param maxDrtn
+	 * @param minDrtn - Minimum time for a session
+	 * @param maxDrtn - Maximum time allowed for session
 	 * @return
 	 */
 	private boolean getSegmentWt(List<Presentation> presentationLst, int minDrtn, int maxDrtn) {
@@ -45,7 +48,7 @@ public class CTMScheduler {
 	}
 
 	/***
-	 * Form array subset of all combination with list of give presentation
+	 * Form array subset of all combination with list of given presentation
 	 * 
 	 * N - stores the segment array size. It starts from 1 to given presentation
 	 * length
