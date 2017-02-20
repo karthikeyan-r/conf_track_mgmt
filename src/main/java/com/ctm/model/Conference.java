@@ -8,7 +8,7 @@ import java.util.List;
  * objects
  * 
  * @author Karthikeyan R
- *
+ * 
  */
 public class Conference {
 
@@ -23,7 +23,7 @@ public class Conference {
 	}
 
 	public Conference() {
-		sessionLst = new ArrayList<>();
+		sessionLst = new ArrayList<Session>();
 	}
 
 	public void addSession(Session session) {
