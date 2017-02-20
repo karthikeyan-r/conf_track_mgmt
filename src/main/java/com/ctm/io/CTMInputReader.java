@@ -66,7 +66,7 @@ public class CTMInputReader {
 
 		int presentationID = 0;
 
-		Map<Integer, Presentation> presentationMap = new LinkedHashMap<>();
+		Map<Integer, Presentation> presentationMap = new LinkedHashMap<Integer, Presentation>();
 
 		for (String string : inputlst) {
 			if (StringUtils.isNotNullNotEmpty(string)) {
