@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.ctm.exception.CTMException;
+
 /***
  * Common utility used in this whole application
  * 
@@ -17,14 +19,14 @@ public class CommonUtils {
 	 * 
 	 * @param timeStr
 	 * @return
+	 * @throws CTMException
 	 */
-	public static Date getFormattedTime(String timeStr) {
+	public static Date getFormattedTime(String timeStr) throws CTMException {
 		try {
 			return Constants.MY_TIME_FORMAT.parse(timeStr);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			throw new CTMException("Unparseable time format:: " + e.getMessage());
 		}
-		return null;
 	}
 
 	/***
@@ -32,9 +34,14 @@ public class CommonUtils {
 	 * 
 	 * @param timeStr
 	 * @return
+	 * @throws CTMException
 	 */
-	public static String getFormattedTimeStr(String timeStr) {
-		return Constants.MY_TIME_FORMAT.format(getFormattedTime(timeStr));
+	public static String getFormattedTimeStr(String timeStr) throws CTMException {
+		try {
+			return Constants.MY_TIME_FORMAT.format(getFormattedTime(timeStr));
+		} catch (Exception e) {
+			throw new CTMException("Unparseable time format:: " + e.getMessage());
+		}
 	}
 
 	/***
@@ -45,7 +52,12 @@ public class CommonUtils {
 	 * @return
 	 */
 	public static String addMinutes(String timeStr, int minutesToAdd) {
-		Date d = getFormattedTime(timeStr);
+		Date d;
+		try {
+			d = getFormattedTime(timeStr);
+		} catch (CTMException e) {
+			d = new Date(timeStr);
+		}
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(d);
 		cal.add(Calendar.MINUTE, minutesToAdd);

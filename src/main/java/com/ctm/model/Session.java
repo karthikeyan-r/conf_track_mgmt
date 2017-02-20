@@ -3,6 +3,7 @@ package com.ctm.model;
 import java.util.List;
 import java.util.Map;
 
+import com.ctm.exception.CTMException;
 import com.ctm.utils.CommonUtils;
 import com.ctm.utils.Constants.SESSION_TYPE;
 import com.ctm.utils.StringUtils;
@@ -92,7 +93,11 @@ public class Session {
 	}
 
 	public void setSessionStartTime(String sessionStartTime) {
-		this.sessionStartTime = CommonUtils.getFormattedTimeStr(sessionStartTime);
+		try {
+			this.sessionStartTime = CommonUtils.getFormattedTimeStr(sessionStartTime);
+		} catch (CTMException e) {
+			this.sessionStartTime = sessionStartTime;
+		}
 	}
 
 	public List<Presentation> getPresentationList() {

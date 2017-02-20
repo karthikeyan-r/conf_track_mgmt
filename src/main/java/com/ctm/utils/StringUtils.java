@@ -1,5 +1,8 @@
 package com.ctm.utils;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /***
  * Common String handling functions used in this application
  * 
@@ -29,7 +32,7 @@ public class StringUtils {
 	public static int parseInt(String str) {
 		if (tryParseInt(str))
 			return Integer.parseInt(str);
-		return 0;
+		return -1;
 	}
 
 	/***
@@ -57,6 +60,21 @@ public class StringUtils {
 		} catch (NumberFormatException e) {
 			return false;
 		}
+	}
+
+	/***
+	 * Regex pattern to read the input line & validate. Input line should be of
+	 * format any alphanumeric character followed by single space & number in
+	 * minutes followed by min/lightining
+	 * 
+	 * @param strLine
+	 * @return
+	 */
+	public static boolean isValidInputLine(String strLine) {
+		Pattern textPattern = Pattern.compile("(.*)(\\s){1}([0-9]*min|lightning)\\b");
+
+		Matcher matcher = textPattern.matcher(strLine);
+		return matcher.matches();
 	}
 
 }

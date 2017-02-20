@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.ctm.exception.CTMException;
 import com.ctm.model.Presentation;
@@ -34,8 +32,9 @@ public class CTMInputReader {
 	 * otherwise InputStream read with System.in (console) input.
 	 * 
 	 * @param fileNm
+	 * @throws CTMException
 	 */
-	public CTMInputReader(String fileNm) {
+	public CTMInputReader(String fileNm) throws CTMException {
 		this.fileName = fileNm;
 
 		try {
@@ -44,11 +43,11 @@ public class CTMInputReader {
 			else
 				inputReader = new BufferedReader(new InputStreamReader(System.in));
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			throw new CTMException(e.getMessage());
 		}
 	}
 
-	public CTMInputReader() {
+	public CTMInputReader() throws CTMException {
 		this(null);
 	}
 
@@ -98,14 +97,14 @@ public class CTMInputReader {
 	 * @return
 	 * @throws CTMException
 	 */
-	private List<String> readFile() throws CTMException {
+	public List<String> readFile() throws CTMException {
 		List<String> inputList = new ArrayList<String>();
 		try {
 			// Read File Line By Line
 			String strLine = null;
 			while ((strLine = inputReader.readLine()) != null && !strLine.equalsIgnoreCase("done")) {
 				strLine = StringUtils.trimExtraSpaces(strLine);
-				if (isValidInputLine(strLine))
+				if (StringUtils.isValidInputLine(strLine))
 					inputList.add(strLine);
 				else
 					System.out.println("---------------INVALID " + strLine);
@@ -116,21 +115,6 @@ public class CTMInputReader {
 			throw new CTMException(e.getMessage());
 		}
 		return inputList;
-	}
-
-	/***
-	 * Regex pattern to read the input line & validate. Input line should be of
-	 * format any alphanumeric character followed by single space & number in
-	 * minutes followed by min/lightining
-	 * 
-	 * @param strLine
-	 * @return
-	 */
-	public boolean isValidInputLine(String strLine) {
-		Pattern textPattern = Pattern.compile("(.*)(\\s){1}([0-9]*min|lightning)\\b");
-
-		Matcher matcher = textPattern.matcher(strLine);
-		return matcher.matches();
 	}
 
 	public int getMaxPresentationTime() {
