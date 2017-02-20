@@ -47,3 +47,13 @@ Rails Magic 60min
 Ruby on Rails: Why We Should Move On 60min
 
 Clojure Ate Scala (on my project) 45min
+
+Programming in the Boondocks of Seattle 30min
+
+Ruby vs. Clojure for Back-End Development 30min
+
+Ruby on Rails Legacy App Maintenance 60min
+
+A World Without HackerNews 30min
+
+User Interface CSS in Rails Apps 30min
