@@ -7,6 +7,9 @@
 	<version>0.1-SNAPSHOT</version>
 	<name>ConferenceTrackManagement</name>
 	<description>Conference Track Management</description>
+	<properties>
+	        <maven.test.skip>true</maven.test.skip>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
