@@ -36,12 +36,13 @@ public class CommonUtils {
 	 * @return
 	 * @throws CTMException
 	 */
-	public static String getFormattedTimeStr(String timeStr) throws CTMException {
+	public static String getFormattedTimeStr(String timeStr) {
 		try {
 			return Constants.MY_TIME_FORMAT.format(getFormattedTime(timeStr));
 		} catch (Exception e) {
-			throw new CTMException("Unparseable time format:: " + e.getMessage());
+			e.printStackTrace();
 		}
+		return timeStr;
 	}
 
 	/***

@@ -1,6 +1,5 @@
 package com.ctm.test.utils;
 
-import com.ctm.exception.CTMException;
 import com.ctm.utils.CommonUtils;
 
 import junit.framework.TestCase;
@@ -19,18 +18,10 @@ public class CommonUtilsTest extends TestCase {
 
 	public void testGetFormattedTimeStr() {
 		String timeStr = "10:00 am";
-		try {
-			assertEquals("10:00 AM", CommonUtils.getFormattedTimeStr(timeStr));
-		} catch (CTMException e1) {
-			e1.printStackTrace();
-		}
+		assertEquals("10:00 AM", CommonUtils.getFormattedTimeStr(timeStr));
 
-		try {
-			timeStr = "20:00";
-			CommonUtils.getFormattedTimeStr(timeStr);
-		} catch (Exception e) {
-			assertTrue(true);
-		}
+		timeStr = "20:00";
+		assertEquals("20:00", CommonUtils.getFormattedTimeStr(timeStr));
 	}
 
 	public void testAddMinutes() {
