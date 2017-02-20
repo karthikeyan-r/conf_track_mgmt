@@ -11,15 +11,17 @@ import com.ctm.utils.Constants.SESSION_TYPE;
  * Session scheduling is not needed - since it is an open session
  * 
  * @author Karthikeyan R
- *
+ * 
  */
 public class BreakSessionImpl extends Session {
 
-	public BreakSessionImpl(SESSION_TYPE sessionType, int maxTime, String sessionStartTime) {
+	public BreakSessionImpl(SESSION_TYPE sessionType, int maxTime,
+			String sessionStartTime) {
 		super(sessionType, maxTime, sessionStartTime);
-		this.presentationList = new ArrayList<>();
+		this.presentationList = new ArrayList<Presentation>();
 		if (maxTime != 0) {
-			String sessionEndTime = CommonUtils.addMinutes(sessionStartTime, maxTime);
+			String sessionEndTime = CommonUtils.addMinutes(sessionStartTime,
+					maxTime);
 			setSessionEndTime(sessionEndTime);
 			this.sessionEndTime = getSessionEndTime();
 		}
