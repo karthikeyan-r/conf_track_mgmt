@@ -21,7 +21,9 @@ Array[] = {0,1,2,3}
 //2: Sum of minutes for each sub array is calculated
 //3: Check whether it falls with session time duration
 ```
->This algorithm is faster - since we are validating each subarray against session duration; it doesn't need to start from first point for each session. Also we are marking a presentation as *Scheduled* once it is added to session. It reduces the combination of subarray count drastically & improves performance of this algorithm.  
+>This algorithm is faster - since we are validating each subarray against session duration; it doesn't need to start from first point for each session. Also we are marking a presentation as **Scheduled** once it is added to session. It reduces the combination of subarray count drastically & improves performance of this algorithm.  
+
+**Based on the scheduling algorithm order of presentation in each session would be decided. Since this algorithm follows *Brute Force* based scheduling algorithm it gives different order of presentation output. But Duration range for each session specified is enforced in scheduling**  
 
 
 # Class Diagram
