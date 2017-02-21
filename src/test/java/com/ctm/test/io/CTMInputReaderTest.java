@@ -13,7 +13,7 @@ public class CTMInputReaderTest extends TestCase {
 	public void testReadFile() {
 		// Invalid file name
 		try {
-			CTMInputReader input = new CTMInputReader("D:\\input.txt");
+			CTMInputReader input = new CTMInputReader("./input.txt");
 
 			assertNotNull(input.readFile());
 		} catch (CTMException e) {
@@ -35,7 +35,7 @@ public class CTMInputReaderTest extends TestCase {
 		// Invalid file name
 		boolean thrown = false;
 		try {
-			new CTMInputReader("D:\\input1.txt");
+			new CTMInputReader("./input1.txt");
 		} catch (CTMException e) {
 			thrown = true;
 		}
@@ -45,9 +45,10 @@ public class CTMInputReaderTest extends TestCase {
 	public void testGetPresentationList() {
 		// Invalid file name
 		try {
-			CTMInputReader input = new CTMInputReader("D:\\input.txt");
+			CTMInputReader input = new CTMInputReader("./input.txt");
 
-			Map<Integer, Presentation> presentationLst = input.getPresentationList();
+			Map<Integer, Presentation> presentationLst = input
+					.getPresentationList();
 
 			assertNotNull(presentationLst);
 
@@ -64,13 +65,14 @@ public class CTMInputReaderTest extends TestCase {
 	public void testGetPresentationList1() {
 		// Invalid file name
 		try {
-			CTMInputReader input = new CTMInputReader("D:\\inputWithInvalid.txt");
+			CTMInputReader input = new CTMInputReader("./inputWithInvalid.txt");
 
-			Map<Integer, Presentation> presentationLst = input.getPresentationList();
+			Map<Integer, Presentation> presentationLst = input
+					.getPresentationList();
 
 			assertNotNull(presentationLst);
 
-			assertEquals(17, presentationLst.size());
+			assertEquals(15, presentationLst.size());
 
 		} catch (CTMException e) {
 			e.printStackTrace();
