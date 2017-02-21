@@ -10,7 +10,7 @@ import com.ctm.exception.CTMException;
  * Common utility used in this whole application
  * 
  * @author Karthikeyan R
- *
+ * 
  */
 public class CommonUtils {
 
@@ -25,7 +25,8 @@ public class CommonUtils {
 		try {
 			return Constants.MY_TIME_FORMAT.parse(timeStr);
 		} catch (ParseException e) {
-			throw new CTMException("Unparseable time format:: " + e.getMessage());
+			throw new CTMException("Unparseable time format:: "
+					+ e.getMessage());
 		}
 	}
 
@@ -40,7 +41,7 @@ public class CommonUtils {
 		try {
 			return Constants.MY_TIME_FORMAT.format(getFormattedTime(timeStr));
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		return timeStr;
 	}
