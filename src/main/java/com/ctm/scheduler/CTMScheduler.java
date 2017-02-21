@@ -14,25 +14,28 @@ import com.ctm.model.PresentationSessionImpl;
  * presentation is added to session
  * 
  * @author Karthikeyan R
- *
+ * 
  */
 public class CTMScheduler {
 
 	private static int N = 1;
 
 	/***
-	 * Calculate sum of weight (total minutes) for given list of presentation & check whether it
-	 * falls within allowed range of duration
+	 * Calculate sum of weight (total minutes) for given list of presentation &
+	 * check whether it falls within allowed range of duration
 	 * 
-	 * If minimum & maximum duration is not same, then we need to check whether sum of minutes 
-	 * falls within this range of values
-	 *
+	 * If minimum & maximum duration is not same, then we need to check whether
+	 * sum of minutes falls within this range of values
+	 * 
 	 * @param presentationLst
-	 * @param minDrtn - Minimum time for a session
-	 * @param maxDrtn - Maximum time allowed for session
+	 * @param minDrtn
+	 *            - Minimum time for a session
+	 * @param maxDrtn
+	 *            - Maximum time allowed for session
 	 * @return
 	 */
-	private boolean getSegmentWt(List<Presentation> presentationLst, int minDrtn, int maxDrtn) {
+	public boolean getSegmentWt(List<Presentation> presentationLst,
+			int minDrtn, int maxDrtn) {
 		int sum = 0;
 		for (Presentation presentn : presentationLst) {
 			sum = sum + presentn.getDuration();
@@ -60,7 +63,8 @@ public class CTMScheduler {
 	 * @param sessionImpl
 	 * @return
 	 */
-	public List<Presentation> splitNSegment(Map<Integer, Presentation> presentatnMap,
+	public List<Presentation> splitNSegment(
+			Map<Integer, Presentation> presentatnMap,
 			PresentationSessionImpl sessionImpl) {
 
 		while (N <= presentatnMap.size()) {
@@ -72,7 +76,8 @@ public class CTMScheduler {
 				if (N < 2) {
 					tempPresentnLst = new ArrayList<Presentation>();
 					tempPresentnLst.add(presentatnMap.get(i));
-					boolean sumW = getSegmentWt(tempPresentnLst, sessionImpl.getMinSessionDuration(),
+					boolean sumW = getSegmentWt(tempPresentnLst,
+							sessionImpl.getMinSessionDuration(),
 							sessionImpl.getMaxSessionDuration());
 					if (sumW)
 						return tempPresentnLst;
@@ -98,7 +103,8 @@ public class CTMScheduler {
 						j1++;
 						j2++;
 					}
-					boolean sumW = getSegmentWt(tempPresentnLst, sessionImpl.getMinSessionDuration(),
+					boolean sumW = getSegmentWt(tempPresentnLst,
+							sessionImpl.getMinSessionDuration(),
 							sessionImpl.getMaxSessionDuration());
 					if (sumW)
 						return tempPresentnLst;
