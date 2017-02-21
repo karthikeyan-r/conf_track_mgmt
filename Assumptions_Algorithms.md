@@ -28,32 +28,32 @@ Array[] = {0,1,2,3}
 
 ![Alt text](src/main/resources/CTMUml.png?raw=true "Class Diagram")
 
-##Conference
+###Conference
 * Class for maintaining entire sessions & collection of presentation to be planned in each session
 * Order of session is maintained - since ArrayList is used for maintaining Session
 
-##Session
+###Session
 * Class for storing individual session & collection of talk to be presented.
 * Each session has it's own range of allowed duration 
 
-###BreakSession
+####BreakSession
 * Extends Session class with it's own set of properties assigned.
 * scheduleSession is not implmeneted - as break session dont have presentation
 * Session with no presentation or empty presentation object
 
-###PresentationSession
+####PresentationSession
 * Collection of presentation is mandatory
 * Custom implemented algorithm for scheduling presentation within each session.
 
-##CTMInputReader
+###CTMInputReader
 * Custom Input Reader class - based on constructor call with filename/without file name, input will be read from console or specified file
 * Reads line input (presentation) entry is predefined format & creates Presentation object for each valid input line.
 
-##CTMOutputWriter
+###CTMOutputWriter
 * Custom Output writer class - based on filename specified while creating object, output will be flushed to console or file.
 
-##CommonUtils & StringUtils
+###CommonUtils & StringUtils
 * Commonly used utility methods which can be reused across project
 
-##CTMScheduler
+###CTMScheduler
 * Scheduler algorithm defined above is implmented & will prepare collection of presentation based on allowed range of duration of corresponding session.
