@@ -1,3 +1,29 @@
+# Algorithm
+This algorithm forms cubset of array for given set of array with non-repeative unique combination. Calculate total sum of duration for each collection of duration. If sum of minutes falls within the acceptable range of duration for session; then corresponding presentation collection is assigned to the session.  
+####Sample Data
+
+```java
+Array[] = {0,1,2,3}  
+//1: Subset array combination for above sample array whould be
+0  
+1  
+2  
+3  
+0 1  
+0 2  
+0 3  
+1 2  
+1 3  
+2 3  
+0 1 2  
+0 1 3  
+0 2 3  
+//2: Sum of minutes for each sub array is calculated
+//3: Check whether it falls with session time duration
+```
+>This algorithm is faster - since we are validating each subarray against session duration; it doesn't need to start from first point for each session. Also we are marking a presentation as *Scheduled* once it is added to session. It reduces the combination of subarray count drastically & improves performance of this algorithm.  
+
+
 # Class Diagram
 
 ![Alt text](src/main/resources/CTMUml.png?raw=true "Class Diagram")
@@ -30,4 +56,4 @@
 * Commonly used utility methods which can be reused across project
 
 ##CTMScheduler
-* 
+* Scheduler algorithm defined above is implmented & will prepare collection of presentation based on allowed range of duration of corresponding session.
