@@ -1,5 +1,5 @@
 # Algorithm
-This algorithm forms cubset of array for given set of array with non-repeative unique combination. Calculate total sum of duration for each collection of duration. If sum of minutes falls within the acceptable range of duration for session; then corresponding presentation collection is assigned to the session.  
+This algorithm forms subset of array for given set of array with non-repeative unique combination. Calculate total sum of duration for each collection of duration. If sum of minutes falls within the acceptable range of duration for session; then corresponding presentation collection is assigned to the session.  
 ####Sample Data
 
 ```java
