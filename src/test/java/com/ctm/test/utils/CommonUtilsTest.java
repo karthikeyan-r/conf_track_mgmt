@@ -19,9 +19,6 @@ public class CommonUtilsTest extends TestCase {
 	public void testGetFormattedTimeStr() {
 		String timeStr = "10:00 am";
 		assertEquals("10:00 AM", CommonUtils.getFormattedTimeStr(timeStr));
-
-		timeStr = "20:00";
-		assertEquals("20:00", CommonUtils.getFormattedTimeStr(timeStr));
 	}
 
 	public void testAddMinutes() {
