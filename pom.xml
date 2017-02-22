@@ -8,7 +8,7 @@
 	<name>ConferenceTrackManagement</name>
 	<description>Conference Track Management</description>
 	<properties>
-	        <maven.test.skip>true</maven.test.skip>
+	        <maven.test.skip>false</maven.test.skip>
 	</properties>
 	<dependencies>
 		<dependency>
