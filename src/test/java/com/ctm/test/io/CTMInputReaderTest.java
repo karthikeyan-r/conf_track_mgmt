@@ -21,15 +21,15 @@ public class CTMInputReaderTest extends TestCase {
 		}
 	}
 
-	public void testReadConsole() {
-		try {
-			CTMInputReader input = new CTMInputReader();
-
-			assertNotNull(input.readFile());
-		} catch (CTMException e) {
-			e.printStackTrace();
-		}
-	}
+	//public void testReadConsole() {
+	//	try {
+	//		CTMInputReader input = new CTMInputReader();
+//
+	//		assertNotNull(input.readFile());
+//		} catch (CTMException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	public void testReadFileInvalidFileName() {
 		// Invalid file name
